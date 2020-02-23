@@ -1,2 +1,2 @@
 # web-snake
- simple snake game for browsers
+ snake game for browsers

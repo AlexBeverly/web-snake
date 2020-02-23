@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SNAKE</title>
+    <style type="text/css">
+        :root {
+            background-color: gray;
+        }
+
+        button {
+            width: 90%;
+            height: 5rem;
+            font-size: 2rem;
+            position: relative;
+            display: block;
+            margin: 25px auto;
+        }
+
+        .board {
+            --boardSize: 900px;
+            width: var(--boardSize);
+            height: var(--boardSize);
+            background-color: black;
+            float: left;
+        }
+
+        .control {
+            width: 500px;
+            height: auto;
+            background-color: blue;
+            float: left;
+        }
+
+        .space {
+            width: calc(var(--boardSize)/10);
+            height: calc(var(--boardSize)/10);
+            float: left;
+            background-color: white;
+        }
+
+        .occupiedspace {
+            width: calc(var(--boardSize)/10);
+            height: calc(var(--boardSize)/10);
+            float: left;
+            background-color: green;
+        }
+
+        .snakehead {
+            width: calc(var(--boardSize)/10);
+            height: calc(var(--boardSize)/10);
+            float: left;
+            background-color: darkgreen;
+        }
+
+        .fruit {
+            width: calc(var(--boardSize)/10);
+            height: calc(var(--boardSize)/10);
+            float: left;
+            background-color: red;
+        }
+
+        .text {
+            font-size: 50px;
+            font-family: monospace;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game">
+        <div class="board" id="board">
+            <div id="r0">
+                <div class="space" id="r0c0"></div>
+                <div class="space" id="r0c1"></div>
+                <div class="space" id="r0c2"></div>
+                <div class="space" id="r0c3"></div>
+                <div class="space" id="r0c4"></div>
+                <div class="space" id="r0c5"></div>
+                <div class="space" id="r0c6"></div>
+                <div class="space" id="r0c7"></div>
+                <div class="space" id="r0c8"></div>
+                <div class="space" id="r0c9"></div>
+            </div>
+            <div id="r1">
+                <div class="space" id="r1c0"></div>
+                <div class="space" id="r1c1"></div>
+                <div class="space" id="r1c2"></div>
+                <div class="space" id="r1c3"></div>
+                <div class="space" id="r1c4"></div>
+                <div class="space" id="r1c5"></div>
+                <div class="space" id="r1c6"></div>
+                <div class="space" id="r1c7"></div>
+                <div class="space" id="r1c8"></div>
+                <div class="space" id="r1c9"></div>
+            </div>
+            <div id="r2">
+                <div class="space" id="r2c0"></div>
+                <div class="space" id="r2c1"></div>
+                <div class="space" id="r2c2"></div>
+                <div class="space" id="r2c3"></div>
+                <div class="space" id="r2c4"></div>
+                <div class="space" id="r2c5"></div>
+                <div class="space" id="r2c6"></div>
+                <div class="space" id="r2c7"></div>
+                <div class="space" id="r2c8"></div>
+                <div class="space" id="r2c9"></div>
+            </div>
+            <div id="r3">
+                <div class="space" id="r3c0"></div>
+                <div class="space" id="r3c1"></div>
+                <div class="space" id="r3c2"></div>
+                <div class="space" id="r3c3"></div>
+                <div class="space" id="r3c4"></div>
+                <div class="space" id="r3c5"></div>
+                <div class="space" id="r3c6"></div>
+                <div class="space" id="r3c7"></div>
+                <div class="space" id="r3c8"></div>
+                <div class="space" id="r3c9"></div>
+            </div>
+            <div id="r4">
+                <div class="space" id="r4c0"></div>
+                <div class="space" id="r4c1"></div>
+                <div class="space" id="r4c2"></div>
+                <div class="space" id="r4c3"></div>
+                <div class="space" id="r4c4"></div>
+                <div class="space" id="r4c5"></div>
+                <div class="space" id="r4c6"></div>
+                <div class="space" id="r4c7"></div>
+                <div class="space" id="r4c8"></div>
+                <div class="space" id="r4c9"></div>
+            </div>
+            <div id="r5">
+                <div class="space" id="r5c0"></div>
+                <div class="space" id="r5c1"></div>
+                <div class="space" id="r5c2"></div>
+                <div class="space" id="r5c3"></div>
+                <div class="space" id="r5c4"></div>
+                <div class="space" id="r5c5"></div>
+                <div class="space" id="r5c6"></div>
+                <div class="space" id="r5c7"></div>
+                <div class="space" id="r5c8"></div>
+                <div class="space" id="r5c9"></div>
+            </div>
+            <div id="r6">
+                <div class="space" id="r6c0"></div>
+                <div class="space" id="r6c1"></div>
+                <div class="space" id="r6c2"></div>
+                <div class="space" id="r6c3"></div>
+                <div class="space" id="r6c4"></div>
+                <div class="space" id="r6c5"></div>
+                <div class="space" id="r6c6"></div>
+                <div class="space" id="r6c7"></div>
+                <div class="space" id="r6c8"></div>
+                <div class="space" id="r6c9"></div>
+            </div>
+            <div id="r7">
+                <div class="space" id="r7c0"></div>
+                <div class="space" id="r7c1"></div>
+                <div class="space" id="r7c2"></div>
+                <div class="space" id="r7c3"></div>
+                <div class="space" id="r7c4"></div>
+                <div class="space" id="r7c5"></div>
+                <div class="space" id="r7c6"></div>
+                <div class="space" id="r7c7"></div>
+                <div class="space" id="r7c8"></div>
+                <div class="space" id="r7c9"></div>
+            </div>
+            <div id="r8">
+                <div class="space" id="r8c0"></div>
+                <div class="space" id="r8c1"></div>
+                <div class="space" id="r8c2"></div>
+                <div class="space" id="r8c3"></div>
+                <div class="space" id="r8c4"></div>
+                <div class="space" id="r8c5"></div>
+                <div class="space" id="r8c6"></div>
+                <div class="space" id="r8c7"></div>
+                <div class="space" id="r8c8"></div>
+                <div class="space" id="r8c9"></div>
+            </div>
+            <div id="r9">
+                <div class="space" id="r9c0"></div>
+                <div class="space" id="r9c1"></div>
+                <div class="space" id="r9c2"></div>
+                <div class="space" id="r9c3"></div>
+                <div class="space" id="r9c4"></div>
+                <div class="space" id="r9c5"></div>
+                <div class="space" id="r9c6"></div>
+                <div class="space" id="r9c7"></div>
+                <div class="space" id="r9c8"></div>
+                <div class="space" id="r9c9"></div>
+            </div>
+        </div>
+        <div class="control">
+            <p class="text"> SNAKE </p>
+            <p id="status" class="text"> Ready to Play </p>
+            <p id="score" class="text"> Score: 0 </p>
+            <button type="button" id="start" onclick="runGame()">Start</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //set position
+        let pos = [0, 0];
+        //array to store board data
+        let spaces = [];
+        let spaceelements = [];
+        for (let i = 0; i < 10; i++) {
+            spaces[i] = [];
+            spaceelements[i] = [];
+            for (let j = 0; j < 10; j++) {
+                spaces[i][j] = 0;
+                spaceelements[i][j] = document.getElementById('r' + j + 'c' + i);
+            }
+        }
+        //enum for directions
+        const dir = { UP: 0, DN: 1, LT: 2, RT: 3 };
+        let currDir = dir.UP;
+        //record last direction
+        let lastDir = currDir;
+        let snakeLen = 3;
+        let score = 0;
+        let speed = 1000;
+
+        //get keypresses for arrow keys
+        document.addEventListener('keydown', event => {
+            if ([37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+                switch (event.keyCode) {
+                    case 37:
+                        if (lastDir != dir.RT) currDir = dir.LT;
+                        break;
+                    case 38:
+                        if (lastDir != dir.DN) currDir = dir.UP;
+                        break;
+                    case 39:
+                        if (lastDir != dir.LT) currDir = dir.RT;
+                        break;
+                    case 40:
+                        if (lastDir != dir.UP) currDir = dir.DN;
+                        break;
+                }
+            }
+        })
+
+        //define actions for each step in the game
+        function step(d) {
+            //move in direction d
+            switch (d) {
+                case dir.UP:
+                    pos[1]--
+                    if (pos[1] < 0) pos[1] += 10;
+                    pos[1] = pos[1] % 10;
+                    break;
+                case dir.DN:
+                    pos[1]++
+                    if (pos[1] < 0) pos[1] += 10;
+                    pos[1] = pos[1] % 10;
+                    break;
+                case dir.RT:
+                    pos[0]++
+                    if (pos[0] < 0) pos[0] += 10;
+                    pos[0] = pos[0] % 10;
+                    break;
+                case dir.LT:
+                    pos[0]--
+                    if (pos[0] < 0) pos[0] += 10;
+                    pos[0] = pos[0] % 10;
+                    break;
+            }
+
+            if (spaces[pos[0]][pos[1]] < 0) { //if space is fruit, increase snake size
+                eatFruit();
+            }
+            //if the space will be occupied by another part of the snake, end the game
+            if (spaces[pos[0]][pos[1]] > 1) {
+                console.log('END');
+                return true;
+            } else { //else give it the value of the snake length (+1 because we subtract 1 every step)
+                spaces[pos[0]][pos[1]] = snakeLen + 1;
+            }
+            //record direction
+            lastDir = currDir;
+            console.log(pos);
+            drawBoard();
+
+            return false;
+        }
+
+        const sleep = ms => {
+            return new Promise(res => setTimeout(res, ms));
+        }
+
+        const clearBoard = () => {
+            pos = [0, 0];
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    spaces[i][j] = 0;
+                    spaceelements[i][j].className = 'space';
+                }
+            }
+        }
+
+        const eatFruit = () => {
+            snakeLen++;
+            score++;
+            //make the step faster
+            if (speed > 50) speed -= 10;
+            document.getElementById('score').innerHTML = 'Score: ' + score;
+            if (snakeLen < 100) placeFruit();
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    if (spaces[i][j] > 0) {
+                        spaces[i][j]++;
+                    }
+                }
+            }
+        }
+
+        const placeFruit = () => {
+            let placed = false;
+            while (!placed) {
+                let r = Math.floor(Math.random() * 10);
+                let c = Math.floor(Math.random() * 10);
+                if (spaces[r][c] === 0) {
+                    spaces[r][c] = -1;
+                    placed = true;
+                }
+            }
+        }
+
+        const drawBoard = () => {
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    //subtract 1 from all occupied spaces
+                    if (spaces[i][j] > 0) {
+                        spaces[i][j]--;
+                    }
+
+                    if (spaces[i][j] === snakeLen) {
+                        spaceelements[i][j].className = 'snakehead';
+                    } else if (spaces[i][j] > 0) {
+                        spaceelements[i][j].className = 'occupiedspace';
+                    } else if (spaces[i][j] < 0) {
+                        spaceelements[i][j].className = 'fruit';
+                    } else {
+                        spaceelements[i][j].className = 'space';
+                    }
+                    //write number for space to debug
+                    //spaceelements[i][j].innerHTML = spaces[i][j];
+                }
+            }
+        }
+
+        async function runGame() {
+            console.log("Starting Game");
+            clearBoard();
+            placeFruit();
+            currDir = dir.RT;
+            // length of the snake
+            snakeLen = 4;
+            score = 0;
+            let end = false;
+            speed = 250;
+            document.getElementById('start').disabled = true;
+            document.getElementById('start').blur();
+            document.getElementById('status').innerHTML = "Playing";
+            document.getElementById('score').innerHTML = 'Score: ' + score;
+            //continue advancing game if not ended
+            while (!end) {
+                console.log('still playing');
+                //wait step delay
+                await sleep(speed);
+                //step and get whether the player lost
+                end = await step(currDir);
+            }
+            if (end) {
+                document.getElementById("status").innerHTML = "GAME OVER<br>";
+                document.getElementById("status").innerHTML += snakeLen === 100 ? "YOU WIN" : "TRY AGAIN";
+            }
+            document.getElementById('start').disabled = false;
+        }
+    </script>
+</body>
+
+</html>
